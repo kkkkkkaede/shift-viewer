@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <link rel="manifest" href="./manifest.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+
+    <!-- iPhone/iPad向け -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="シフト確認">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+    <title>シフト確認</title>
+
+    <!-- ExcelJS -->
+    <script src="./exceljs.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="./main.js" defer></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+
+<body>
+
+    <main class="container">
+
+        <!-- タイトル -->
+        <header class="header">
+            <div class="header-icon">✓</div>
+
+            <div>
+                <h1>シフト確認</h1>
+                <p>
+                    Excelのシフト表から勤務時間を確認できます
+                </p>
+            </div>
+        </header>
+
+
+        <!-- 入力カード -->
+        <section class="card input-area">
+
+            <h2>シフトを検索</h2>
+
+            <!-- 名前 -->
+            <div class="form-group">
+
+                <label for="employeeName">
+                    名前
+                </label>
+
+                <input
+                    type="text"
+                    id="employeeName"
+                    placeholder="例：松岡 楓"
+                    autocomplete="name"
+                >
+
+            </div>
+
+
+            <!-- Excel -->
+            <div class="form-group">
+
+                <label for="excelFile">
+                    シフト表
+                </label>
+
+                <div class="file-area">
+
+                    <span class="file-icon">📄</span>
+
+                    <div class="file-description">
+                        <strong>Excelファイルを選択</strong>
+                        <small>.xlsx ファイルに対応</small>
+                    </div>
+
+                    <input
+                        type="file"
+                        id="excelFile"
+                        accept=".xlsx"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- 実行ボタン -->
+            <button
+                type="button"
+                id="checkButton"
+            >
+                シフトを確認する
+            </button>
+
+        </section>
+
+
+        <!-- 結果 -->
+        <section class="result-section">
+
+            <div class="section-title">
+                <div>
+                    <h2>勤務情報</h2>
+                    <p>検索した勤務シフトが表示されます</p>
+                </div>
+            </div>
+
+            <!-- JavaScriptがここに結果を追加 -->
+            <div id="result"></div>
+
+            <!-- JavaScriptがここに合計時間を追加 -->
+            <div id="total"></div>
+
+        </section>
+
+
+        <footer>
+            Shift Viewer
+        </footer>
+
+    </main>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker
+        .register("./service-worker.js")
+        .catch(function (error) {
+          console.error("Service Workerの登録に失敗しました:", error);
+        });
+    });
+  }
+</script>
+</body>
+
+</html>
